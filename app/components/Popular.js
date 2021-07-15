@@ -18,7 +18,7 @@ function LanguagesNav({ selected, onUpdateLanguage }) {
             className="btn-clear nav-link"
             style={
               language === selected
-                ? { color: "rgb(187, 46, 31)", textDecoration: "underline" }
+                ? { color: "rgb(187, 46, 31)", textDecoration: "underline", cursor: "pointer" }
                 : null
             }
             onClick={() => onUpdateLanguage(language)}
