@@ -146,7 +146,7 @@ export default class Popular extends React.Component {
           selected={selectLanguage}
           onUpdateLanguage={this.updateLanguage}
         />
-        {this.isLoading() && <Loading />}
+        {this.isLoading() && <Loading text="Fetching Repos" />}
 
         {error && <p className="center-text error">{error}</p>}
 
