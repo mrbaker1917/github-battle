@@ -93,7 +93,7 @@ export default class Results extends React.Component {
             </li>
             <li>
               <FaCode color="" size={22} />
-              {winner.profile.}
+              {/* {winner.profile.} */}
             </li>
           </ul>
         </div>
@@ -138,7 +138,7 @@ export default class Results extends React.Component {
             </li>
             <li>
               <FaCode color="" size={22} />
-              {loser.profile.}
+              {/* {loser.profile.} */}
             </li>
           </ul>
         </div>
