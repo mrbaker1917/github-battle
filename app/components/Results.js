@@ -44,8 +44,24 @@ class ProfileList extends React.Component {
       hoveringLocation: false,
       hoveringCompany: false,
     };
+    this.mouseOver = this.mouseOver.bind(this);
+    this.mouseOut = this.mouseOut.bind(this);
   }
+  mouseOver(id) {
+    this.setState({
+      [id]: true,
+    });
+  }
+
+  mouseOut(id) {
+    this.setState({
+      [id]: false,
+    });
+  }
+
   render() {
+    const { profile } = this.props;
+    const { hoveringLocation, hoveringCompany } = this.state;
     return (
       <ul className="card-list">
         <li>
@@ -53,18 +69,26 @@ class ProfileList extends React.Component {
           {profile.name}
         </li>
         {profile.location && (
-          <li>
+          <li
+            onMouseOver={() => this.mouseOver("hoveringLocation")}
+            onMouseOut={() => this.mouseOut("hoveringLocation")}
+            style={styles.container}
+          >
             {hoveringLocation === true && (
-              <div style={styles.tooltip}>User's Company</div>
+              <div style={styles.tooltip}>User's Location</div>
             )}
             <FaCompass color="rgb(144, 115, 255)" size={22} />
             {profile.location}
           </li>
         )}
         {profile.company && (
-          <li>
+          <li
+            onMouseOver={() => this.mouseOver("hoveringCompany")}
+            onMouseOut={() => this.mouseOut("hoveringCompany")}
+            style={styles.container}
+          >
             {hoveringCompany === true && (
-              <div style={styles.tooltip}>User's Location</div>
+              <div style={styles.tooltip}>User's Company</div>
             )}
 
             <FaBriefcase color="#795548" size={22} />
