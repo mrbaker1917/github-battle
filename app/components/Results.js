@@ -10,13 +10,14 @@ import {
   FaSuitcase,
 } from "react-icons/fa";
 import Card from "./Card";
-import PropTypes from "prop-types"
+import PropTypes from "prop-types";
 import Loading from "./Loading";
+import { render } from "react-dom";
 
 const styles = {
   container: {
     position: "relative",
-    display: "flex"
+    display: "flex",
   },
   tooltip: {
     boxSizing: "border-box",
@@ -32,43 +33,60 @@ const styles = {
     color: "#fff",
     textAlign: "center",
     fontSize: "14px",
-  }
-}
+  },
+};
 
-function ProfileList({ profile }) {
-  return (
-    <ul className="card-list">
-      <li>
-        <FaUser color="rgb(239, 115, 115)" size={22} />
-        {profile.name}
-      </li>
-      {profile.location && (
+class ProfileList extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      hoveringLocation: false,
+      hoveringCompany: false,
+    };
+  }
+  render() {
+    return (
+      <ul className="card-list">
         <li>
-          <FaCompass color="rgb(144, 115, 255)" size={22} />
-          {profile.location}
+          <FaUser color="rgb(239, 115, 115)" size={22} />
+          {profile.name}
         </li>
-      )}
-      {profile.company && (
+        {profile.location && (
+          <li>
+            {hoveringLocation === true && (
+              <div style={styles.tooltip}>User's Company</div>
+            )}
+            <FaCompass color="rgb(144, 115, 255)" size={22} />
+            {profile.location}
+          </li>
+        )}
+        {profile.company && (
+          <li>
+            {hoveringCompany === true && (
+              <div style={styles.tooltip}>User's Location</div>
+            )}
+
+            <FaBriefcase color="#795548" size={22} />
+            {profile.company}
+          </li>
+        )}
         <li>
-          <FaBriefcase color="#795548" size={22} />
-          {profile.company}
+          <FaUsers color="#81C3F5" size={22} />
+          {profile.followers.toLocaleString()} followers
         </li>
-      )}
-      <li>
-        <FaUsers color="#81C3F5" size={22} />
-        {profile.followers.toLocaleString()} followers
-      </li>
-      <li>
-        <FaUserFriends color="rgb(64, 183, 95)" size={22} />
-        {profile.following.toLocaleString()} following
-      </li>
-    </ul>
-  );
+        <li>
+          <FaUserFriends color="rgb(64, 183, 95)" size={22} />
+          {profile.following.toLocaleString()} following
+        </li>
+      </ul>
+    );
+  }
 }
 
 ProfileList.propTypes = {
   profile: PropTypes.object.isRequired,
-}
+};
 
 export default class Results extends React.Component {
   constructor(props) {
@@ -104,7 +122,7 @@ export default class Results extends React.Component {
     const { winner, loser, error, loading } = this.state;
 
     if (loading === true) {
-      return <Loading text="Battling" />
+      return <Loading text="Battling" />;
     }
     if (error) {
       return <p className="center-text error">{error}</p>;
@@ -132,10 +150,8 @@ export default class Results extends React.Component {
             <ProfileList profile={loser.profile} />
           </Card>
         </div>
-        <button
-          onClick={this.props.onReset}
-          className="btn dark-btn btn-space"
-        >Reset
+        <button onClick={this.props.onReset} className="btn dark-btn btn-space">
+          Reset
         </button>
       </React.Fragment>
     );
@@ -146,4 +162,4 @@ Results.propTypes = {
   playerOne: PropTypes.string.isRequired,
   playerTwo: PropTypes.string.isRequired,
   onReset: PropTypes.func.isRequired,
-}
+};
