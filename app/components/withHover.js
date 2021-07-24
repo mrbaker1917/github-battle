@@ -1,9 +1,9 @@
 import React from "react";
 
 export default function withHover(Component) {
-  return class WithHover extends React.Componen {
+  return class WithHover extends React.Component {
     constructor(props) {
-      super(props);
+      super(props)
       this.state = {
         hovering: false,
       };
@@ -31,5 +31,5 @@ export default function withHover(Component) {
         </div>
       )
     }
-  };
+  }
 }

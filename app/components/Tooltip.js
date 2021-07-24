@@ -24,13 +24,9 @@ const styles = {
   },
 };
 
-function Tooltip({ text, children, hovering }) {
+function Tooltip ({ text, children, hovering }) {
   return (
-    <div
-      onMouseOver={this.mouseOver}
-      onMouseOut={this.mouseOut}
-      style={styles.container}
-    >
+    <div style={styles.container}>
       {hovering === true && <div style={styles.tooltip}>{text}</div>}
       {children}
     </div>
