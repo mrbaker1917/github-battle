@@ -88,7 +88,7 @@ class PlayerInput extends React.Component {
                 onChange={this.handleChange}
               />
               <button
-                className={`btn ${theme === 'dark' ? 'light' : 'dark'}-btn`}
+                className={`btn ${theme === "dark" ? "light" : "dark"}-btn`}
                 type="submit"
                 disabled={!this.state.username}
               >
@@ -109,24 +109,28 @@ PlayerInput.propTypes = {
 
 function PlayerPreview({ username, onReset, label }) {
   return (
-    <div className="column player">
-      <h3 className="player-label">{label}</h3>
-      <div className="row bg-light">
-        <div className="player-info">
-          <img
-            className="avatar-small"
-            src={`https://github.com/${username}.png?size=200`}
-            alt={`Avatar for ${username}`}
-          />
-          <a className="link" href={`https://github.com/${username}`}>
-            {username}
-          </a>
+    <ThemeConsumer>
+      {({ theme }) => (
+        <div className="column player">
+          <h3 className="player-label">{label}</h3>
+          <div className={`row bg-${theme}`}>
+            <div className="player-info">
+              <img
+                className="avatar-small"
+                src={`https://github.com/${username}.png?size=200`}
+                alt={`Avatar for ${username}`}
+              />
+              <a className="link" href={`https://github.com/${username}`}>
+                {username}
+              </a>
+            </div>
+            <button className="btn-clear flex-center" onClick={onReset}>
+              <FaTimesCircle color="rgb(194, 57, 42)" size={26} />
+            </button>
+          </div>
         </div>
-        <button className="btn-clear flex-center" onClick={onReset}>
-          <FaTimesCircle color="rgb(194, 57, 42)" size={26} />
-        </button>
-      </div>
-    </div>
+      )}
+    </ThemeConsumer>
   );
 }
 
