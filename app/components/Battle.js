@@ -1,32 +1,44 @@
 import { func } from "prop-types";
 import React from "react";
-import { FaUserFriends, FaFighterJet, FaTrophy, FaTimesCircle } from "react-icons/fa";
+import {
+  FaUserFriends,
+  FaFighterJet,
+  FaTrophy,
+  FaTimesCircle,
+} from "react-icons/fa";
 import PropTypes from "prop-types";
 import Results from "./Results";
+import { ThemeConsumer } from "../contexts/theme";
 
 function Instructions() {
   return (
-    <div className="instructions-container">
-      <h1 className="center-text header-lg">Instructions</h1>
-      <ol className="container-sm grid center-text battle-instructions">
-        <li>
-          <h3 className="header-sm">Enter two Github users</h3>
-          <FaUserFriends
-            className="bg-light"
-            color="rgb(255, 191, 116)"
-            size={140}
-          />
-        </li>
-        <li>
-          <h3 className="header-sm">Battle!</h3>
-          <FaFighterJet className="bg-light" color="#727272" size={140} />
-        </li>
-        <li>
-          <h3 className="header-sm">See the winner!</h3>
-          <FaTrophy className="bg-light" color="rgb(255, 215, 0)" size={140} />
-        </li>
-      </ol>
-    </div>
+    <ThemeConsumer>
+      <div className="instructions-container">
+        <h1 className="center-text header-lg">Instructions</h1>
+        <ol className="container-sm grid center-text battle-instructions">
+          <li>
+            <h3 className="header-sm">Enter two Github users</h3>
+            <FaUserFriends
+              className="bg-light"
+              color="rgb(255, 191, 116)"
+              size={140}
+            />
+          </li>
+          <li>
+            <h3 className="header-sm">Battle!</h3>
+            <FaFighterJet className="bg-light" color="#727272" size={140} />
+          </li>
+          <li>
+            <h3 className="header-sm">See the winner!</h3>
+            <FaTrophy
+              className="bg-light"
+              color="rgb(255, 215, 0)"
+              size={140}
+            />
+          </li>
+        </ol>
+      </div>
+    </ThemeConsumer>
   );
 }
 
@@ -96,7 +108,9 @@ function PlayerPreview({ username, onReset, label }) {
             src={`https://github.com/${username}.png?size=200`}
             alt={`Avatar for ${username}`}
           />
-          <a className="link" href={`https://github.com/${username}`}>{username}</a>
+          <a className="link" href={`https://github.com/${username}`}>
+            {username}
+          </a>
         </div>
         <button className="btn-clear flex-center" onClick={onReset}>
           <FaTimesCircle color="rgb(194, 57, 42)" size={26} />
@@ -133,8 +147,8 @@ export default class Battle extends React.Component {
 
   handleReset(id) {
     this.setState({
-      [id]: null
-    })
+      [id]: null,
+    });
   }
 
   render() {
@@ -142,16 +156,19 @@ export default class Battle extends React.Component {
 
     if (battle === true) {
       return (
-      <Results 
-        playerOne={playerOne} 
-        playerTwo={playerTwo} 
-        onReset={() => this.setState({
-          playerOne: null,
-          playerTwo: null,
-          battle: false
-        })}
+        <Results
+          playerOne={playerOne}
+          playerTwo={playerTwo}
+          onReset={() =>
+            this.setState({
+              playerOne: null,
+              playerTwo: null,
+              battle: false,
+            })
+          }
         />
-      )}
+      );
+    }
 
     return (
       <React.Fragment>
@@ -188,7 +205,7 @@ export default class Battle extends React.Component {
           {playerOne && playerTwo && (
             <button
               className="btn dark-btn btn-space"
-              onClick={() => this.setState({battle: true})}
+              onClick={() => this.setState({ battle: true })}
             >
               Battle
             </button>
