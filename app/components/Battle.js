@@ -50,21 +50,15 @@ function Instructions() {
 }
 
 class PlayerInput extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      username: "",
-    };
-
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+  state = {
+    username: ""
   }
-  handleSubmit(event) {
+  
+  handleSubmit = (event) => {
     event.preventDefault();
     this.props.onSubmit(this.state.username);
   }
-  handleChange(event) {
+  handleChange = (event) => {
     this.setState({
       username: event.target.value,
     });
