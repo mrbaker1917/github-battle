@@ -9,7 +9,7 @@ import {
 } from "react-icons/fa";
 import Card from "./Card";
 import Loading from "./Loading";
-import Tooltip from "./tooltip";
+import Tooltip from "./Tooltip";
 
 function LanguagesNav({ selected, onUpdateLanguage }) {
   const languages = ["All", "JavaScript", "Ruby", "Java", "CSS", "Python"];
