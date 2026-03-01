@@ -14,7 +14,7 @@ import PropTypes from "prop-types";
 import Loading from "./Loading";
 import Tooltip from "./Tooltip";
 import queryString from "query-string";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function ProfileList({ profile }) {
   return (
@@ -55,7 +55,7 @@ ProfileList.propTypes = {
   profile: PropTypes.object.isRequired,
 };
 
-export default class Results extends React.Component {
+class Results extends React.Component {
   constructor(props) {
     super(props);
 
@@ -124,3 +124,11 @@ export default class Results extends React.Component {
     );
   }
 }
+
+// Wrapper component for React Router v6
+function ResultsWithRouter() {
+  const location = useLocation();
+  return <Results location={location} />;
+}
+
+export default ResultsWithRouter;

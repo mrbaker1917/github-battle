@@ -1,9 +1,9 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import "./index.css";
 import { ThemeProvider } from "./contexts/theme";
 import Nav from "./components/Nav";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Loading from "./components/Loading";
 
 const Popular = React.lazy(() => import("./components/Popular"));
@@ -33,12 +33,12 @@ class App extends React.Component {
             <div className="container">
               <Nav />
               <React.Suspense fallback={<Loading/>}>
-                <Switch>
-                  <Route exact path="/" component={Popular} />
-                  <Route exact path="/battle" component={Battle} />
-                  <Route path="/battle/results" component={Results} />
-                  <Route render={() => <h1>404 Error! Is URL wrong?</h1>} />
-                </Switch>
+                <Routes>
+                  <Route path="/" element={<Popular />} />
+                  <Route path="/battle" element={<Battle />} />
+                  <Route path="/battle/results" element={<Results />} />
+                  <Route path="*" element={<h1>404 Error! Is URL wrong?</h1>} />
+                </Routes>
               </React.Suspense>
             </div>
           </div>
@@ -48,4 +48,6 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App />, document.getElementById("app"));
+const container = document.getElementById("app");
+const root = createRoot(container);
+root.render(<App />);

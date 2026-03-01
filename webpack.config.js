@@ -7,11 +7,18 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "index_bundle.js",
-    publicPath: "/"
+    publicPath: "/",
+    clean: true
   },
   module: {
     rules: [
-      { test: /\.(js)$/, use: "babel-loader" },
+      { 
+        test: /\.(js|jsx)$/, 
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader"
+        }
+      },
       { test: /\.css$/, use: ["style-loader", "css-loader"] },
     ],
   },
@@ -20,9 +27,22 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "app/index.html"
     }),
-    new CopyPlugin({ patterns: [{ from: "_redirects" }] })
+    new CopyPlugin({ 
+      patterns: [{ 
+        from: "_redirects", 
+        to: "." 
+      }] 
+    })
   ],
   devServer: {
-    historyApiFallback: true
+    static: {
+      directory: path.join(__dirname, 'dist'),
+    },
+    historyApiFallback: true,
+    port: 8080,
+    hot: true
+  },
+  resolve: {
+    extensions: ['.js', '.jsx']
   }
 };

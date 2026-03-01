@@ -197,10 +197,7 @@ export default class Battle extends React.Component {
           {playerOne && playerTwo && (
             <Link
               className="btn dark-btn btn-space"
-              to={{
-                pathname: "/battle/results",
-                search: `?playerOne=${playerOne}&playerTwo=${playerTwo}`
-              }}
+              to={`/battle/results?playerOne=${playerOne}&playerTwo=${playerTwo}`}
             >
               Battle
             </Link>
